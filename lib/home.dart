@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,36 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   TextEditingController _controllerAlcool = TextEditingController();
   TextEditingController _controllerGasolina = TextEditingController();
+  var _resultado = "";
+
+  void _calcular() {
+    var gasolina = double.tryParse(_controllerGasolina.text);
+    var alcool = double.tryParse(_controllerAlcool.text);
+    if (gasolina != null && alcool != null) {
+      if ((alcool / gasolina) >= 0.7) {
+        setState(() {
+          _resultado = "Melhor abastecer com Gasolina";
+        });
+      } else {
+        setState(() {
+          _resultado = "Melhor abastecer com Álcool";
+        });
+      }
+    } else {
+      setState(() {
+        _resultado =
+            "Número inválido, digite números maiores que 0 e utilizando (.)";
+      });
+    }
+  }
+
+  void _limparCampos() {
+    _controllerGasolina.text = "";
+    _controllerAlcool.text = "";
+    setState(() {
+      _resultado = "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +62,10 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: EdgeInsets.only(bottom: 10),
                 child: Text(
-                  "Saiba qual a melhor opção para abastecimento do seu carro",
+                  "Saiba qual a melhor opção para o abastecimento do seu carro",
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -55,26 +86,44 @@ class _HomeState extends State<Home> {
                 style: TextStyle(fontSize: 22),
                 controller: _controllerGasolina,
               ),
-              // Botao
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: RaisedButton(
-                  color: Colors.blue,
-                  textColor: Colors.white,
-                  padding: EdgeInsets.all(15),
-                  onPressed: () {},
-                  child: Text(
-                    "Calcular",
-                    style: TextStyle(fontSize: 20),
+              // Botoes
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.all(15),
+                      onPressed: _limparCampos,
+                      child: Text(
+                        "Limpar",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: RaisedButton(
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      padding: EdgeInsets.all(15),
+                      onPressed: _calcular,
+                      child: Text(
+                        "Calcular",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               // Resultado
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Text(
-                  "Resultado",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  _resultado,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
