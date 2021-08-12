@@ -1,5 +1,5 @@
 name: flutter_alcool_gasolina
-description: A new Flutter project.
+description: A aplicação consiste em uma tela Home onde será possível calcular se é mais vantajoso abastecer com álcool ou gasolina, dado o preço de ambos pelo usuário.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

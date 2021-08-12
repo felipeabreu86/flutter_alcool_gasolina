@@ -11,6 +11,31 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   TextEditingController _controllerAlcool = TextEditingController();
   TextEditingController _controllerGasolina = TextEditingController();
+  String _textoResultado = "";
+
+  void _calcular() {
+    double? precoAlcool = double.tryParse(_controllerAlcool.text);
+    double? precoGasolina = double.tryParse(_controllerGasolina.text);
+
+    setState(() {
+      if (precoAlcool == null || precoGasolina == null) {
+        _textoResultado =
+            "Número inválido, digite números maiores que 0 e utilizando (.)";
+      } else {
+        if ((precoAlcool / precoGasolina) >= 0.7) {
+          _textoResultado = "Melhor abastecer com gasolina.";
+        } else {
+          _textoResultado = "Melhor abastecer com álcool";
+        }
+      }
+      _limparCampos();
+    });
+  }
+
+  void _limparCampos() {
+    _controllerAlcool.text = "";
+    _controllerGasolina.text = "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +83,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _calcular,
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue)),
                   child: Text(
@@ -72,9 +97,11 @@ class _HomeState extends State<Home> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20),
-                child: Text(
-                  "Resultado",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                child: Center(
+                  child: Text(
+                    _textoResultado,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
                 ),
               )
             ],
