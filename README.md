@@ -3,7 +3,7 @@
 
 # Sobre o Projeto
 
-**Álcool ou Gasolina ** é um projeto mobile cross-platform construído em Flutter voltado para o meu estudo pessoal relacionado a esta tecnologia.
+**Álcool ou Gasolina** é um projeto mobile cross-platform construído em Flutter voltado para o meu estudo pessoal relacionado a esta tecnologia.
 
 A aplicação consiste em uma tela Home onde será possível calcular se é mais vantajoso abastecer com álcool ou gasolina, dado o preço de ambos pelo usuário.
 
